@@ -65,7 +65,7 @@
     -->
     <div
       class="alert-bg-img"
-      style="background-image: url('/8thstreet-02.JPG')"
+      style="background-image: url('/hero-fallback.jpg')"
     ></div>
 
     <!-- Dark gradient overlay — lighter at top, heavier at bottom for readability -->
