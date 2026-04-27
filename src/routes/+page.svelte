@@ -20,15 +20,15 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-sm-10 col-lg-8 col-xxl-6">
+      <!-- TEMPORARY: Remove once [[MeetYesica]]...[[/MeetYesica]] is in
+           your Google Doc and you've run `npm run build:extract-google-doc`. -->
+      <MeetYesica />
+
       <!-- TEMPORARY: HowItSpreads is hard-coded here for testing.
            Once you add [[HowItSpreads]] to your Google Doc and run
            `npm run build:extract-google-doc`, remove this line and
            let DocRenderer handle it from the blocks below. -->
       <HowItSpreads />
-
-      <!-- TEMPORARY: Remove once [[MeetYesica]]...[[/MeetYesica]] is in
-           your Google Doc and you've run `npm run build:extract-google-doc`. -->
-      <MeetYesica />
 
       <!-- TEMPORARY: Remove once [[map]] is in your Google Doc and you've
            run `npm run build:extract-google-doc`. -->

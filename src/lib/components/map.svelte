@@ -91,26 +91,23 @@
     margin-left: calc(50% - 50vw);
   }
 
-  /* Responsive ratio container: 60% ≈ 5:3, taller than 16:9 for sliders */
+  /* ── Adaptive container ──────────────────────────────────── */
+  /* height: clamp(min, preferred, max)
+     - preferred = 65vh scales continuously with any screen size
+     - min = 260px  prevents collapse on tiny phones / landscape mobile
+     - max = 780px  stops it dominating a large monitor
+     No breakpoints needed — this adapts fluidly to every screen. */
   .juxtapose-ratio {
     position: relative;
-    padding-bottom: 60%;
-    height: 0;
+    width: 100%;
+    height: clamp(400px, 85vh, 1000px);
     background: #111;
     overflow: hidden;
   }
 
-  @media (max-width: 600px) {
-    /* Taller crop on mobile so the images are still readable */
-    .juxtapose-ratio {
-      padding-bottom: 80%;
-    }
-  }
-
   .juxtapose-ratio iframe {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     display: block;

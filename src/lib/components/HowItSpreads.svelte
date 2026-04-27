@@ -1,349 +1,552 @@
 <!--
-  HowItSpreads.svelte — Section 2: "How Leptospirosis Spreads"
+  HowItSpreads.svelte — Scroll-driven transmission explainer
 
-  USAGE IN GOOGLE DOC:
-  Add this single line wherever you want Section 2 to appear:
+  ════════════════════════════════════════════════════════════
+  GOOGLE DOC USAGE
+  ════════════════════════════════════════════════════════════
+  Option A — standalone shortcode (heading + paragraphs live
+  in the Google Doc as normal text above it):
 
       [[HowItSpreads]]
 
-  That's it. After running `npm run build:extract-google-doc` the full
-  interactive section will render in that position.
+  Option B — block shortcode (intro text comes from Google Doc):
 
-  To update any text, edit this file directly.
+      [[HowItSpreads]]
+      ## How Leptospirosis Spreads
+      Leptospirosis is often invisible at first...
+      [[/HowItSpreads]]
+
+  ════════════════════════════════════════════════════════════
+  IMAGES
+  ════════════════════════════════════════════════════════════
+  1. Create the folder:  static/images/lepto/
+  2. Add your five PNG files with these exact names:
+       step-1-rat.png
+       step-2-urine.png
+       step-3-rain-soil.png
+       step-4-human-entry.png
+       step-5-symptoms.png
+  3. Each `image` path in the steps array below already
+     points there — no other changes needed.
+
+  To update step labels or short text, edit the `steps` array.
+  Long story paragraphs should live in the Google Doc, not here.
 -->
 
 <script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
+  import { browser } from '$app/environment';
   import { fade } from 'svelte/transition';
+  import { base } from '$app/paths';
 
+  // Intro text from the Google Doc when used as a block shortcode.
+  // Leave empty when using Option A (standalone shortcode).
+  export let bodyHtml: string = '';
+
+  // ── Transmission steps ────────────────────────────────────
+  // Edit shortLabel and text here.
+  // Replace each `image` path once your PNGs are in static/images/lepto/
   const steps = [
     {
-      number: '01',
-      label: 'Rats & Animals',
-      heading: 'Infected animals carry the bacteria',
-      body: 'Rats, dogs, and other animals can carry Leptospira bacteria without showing any signs of illness. In the Berkeley case, both rats and two dogs near Harrison Street tested positive for the bacteria.'
+      shortLabel: 'Rats & Animals',
+      image: `${base}/1-rat.png`,
+      alt: 'Illustration of a rat as a reservoir host for Leptospira bacteria',
+      text: 'Rats can carry Leptospira bacteria without immediately appearing sick.'
     },
     {
-      number: '02',
-      label: 'Urine',
-      heading: 'Bacteria shed through urine',
-      body: 'Infected animals shed Leptospira bacteria through their urine. This is the primary way the bacteria enters the surrounding environment — often without any visible sign of contamination.'
+      shortLabel: 'Urine',
+      // Filename has a space — encoded as %20 for safe URL usage
+      image: `${base}/2-rat%20urine.png`,
+      alt: 'Illustration showing bacteria shed through animal urine',
+      text: 'The bacteria leave the body through urine and can contaminate the ground.'
     },
     {
-      number: '03',
-      label: 'Water & Soil',
-      heading: 'Contaminated water and soil',
-      body: 'The bacteria can survive in water, wet soil, and damp surfaces for days or weeks — especially after rain. Puddles, flooded areas, and garbage-filled zones near encampments can all become exposure sites.'
+      shortLabel: 'Rain & Soil',
+      // Filename has a space — encoded as %20
+      image: `${base}/3-rain%20drops.png`,
+      alt: 'Illustration of rainwater spreading bacteria through soil, mud and puddles',
+      text: 'Rainwater can move bacteria through soil, mud, puddles and drains.'
     },
     {
-      number: '04',
-      label: 'Human Exposure',
-      heading: 'How people and pets are exposed',
-      body: 'People and pets are typically exposed through skin contact — especially through cuts or abrasions — or by ingesting contaminated water. Dogs that walk or play in standing water face heightened risk.'
+      shortLabel: 'Human Exposure',
+      image: `${base}/4-human.png`,
+      alt: 'Illustration of human exposure points: eyes, nose, mouth and broken skin',
+      text: 'People can be exposed when contaminated water or soil reaches the mouth, eyes, nose or broken skin.'
     },
     {
-      number: '05',
-      label: 'Symptoms',
-      heading: 'Symptoms that are easy to miss',
-      body: 'Symptoms appear 2 to 30 days after exposure. Early signs — fever, chills, muscle aches, headache — resemble the flu or food poisoning, making leptospirosis difficult to detect without a specific blood or urine test.'
+      shortLabel: 'Symptoms',
+      // Filename has a space — encoded as %20
+      image: `${base}/5-sick%20human.png`,
+      alt: 'Illustration of a person showing flu-like symptoms: fever, chills, muscle aches',
+      text: 'Symptoms can look like flu or food poisoning, making the disease difficult to recognize early.'
     }
   ];
 
-  let activeIndex = 0;
+  let activeStep = 0;
+  let showCycle = false;
+
+  let stepEls: (HTMLElement | null)[] = new Array(steps.length).fill(null);
+  let cycleEl: HTMLElement | null = null;
+  let observer: IntersectionObserver | null = null;
+
+  onMount(() => {
+    if (!browser) return;
+
+    // Fires when a step or the cycle section crosses the middle band
+    // of the viewport (rootMargin clips top and bottom 35%)
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+
+          const idx = stepEls.indexOf(entry.target as HTMLElement);
+          if (idx !== -1) activeStep = idx;
+          if (entry.target === cycleEl) showCycle = true;
+        }
+      },
+      { rootMargin: '-35% 0px -35% 0px', threshold: 0 }
+    );
+
+    stepEls.forEach(el => el && observer?.observe(el));
+    if (cycleEl) observer.observe(cycleEl);
+  });
+
+  onDestroy(() => observer?.disconnect());
 </script>
 
-<section class="how-it-spreads" aria-labelledby="spreads-heading">
 
-  <!-- Section intro -->
-  <div class="spreads-intro">
-    <p class="spreads-kicker">Explainer</p>
-    <h2 id="spreads-heading" class="spreads-heading">How Leptospirosis Spreads</h2>
-    <p class="spreads-intro-text">
-      Leptospirosis is often invisible at first. The bacteria can move through animals,
-      water, soil and human contact before anyone knows they have been exposed.
-    </p>
-  </div>
+<section class="how-spreads" aria-label="How leptospirosis spreads">
 
-  <!-- Transmission chain — five clickable steps -->
-  <div class="chain">
-    {#each steps as step, i}
-      <!-- Accessible button; aria-pressed tracks active state -->
-      <button
-        class="step-btn"
-        class:active={activeIndex === i}
-        aria-pressed={activeIndex === i}
-        on:click={() => (activeIndex = i)}
-      >
-        <span class="step-number" aria-hidden="true">{step.number}</span>
-        <span class="step-label">{step.label}</span>
-      </button>
+  <!-- ── Optional intro from Google Doc ── -->
+  {#if bodyHtml}
+    <div class="spreads-doc-intro">
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      {@html bodyHtml}
+    </div>
+  {/if}
 
-      <!-- Arrow connector between steps, hidden on mobile -->
-      {#if i < steps.length - 1}
-        <span class="chain-arrow" aria-hidden="true">›</span>
-      {/if}
-    {/each}
-  </div>
+  <!-- ── Scroll-driven two-column body ── -->
+  <div class="spreads-body">
 
-  <!-- Progress bar: thin line filling as active step advances -->
-  <div class="chain-progress" aria-hidden="true">
-    <div
-      class="chain-progress-fill"
-      style="width: {((activeIndex) / (steps.length - 1)) * 100}%"
-    ></div>
-  </div>
+    <!-- LEFT: scroll column — one panel per step -->
+    <div class="spreads-scroll">
+      {#each steps as step, i (i)}
+        <div class="step-panel" bind:this={stepEls[i]}>
 
-  <!-- Explanation panel: fades in when active step changes -->
-  {#key activeIndex}
-    <div class="step-panel" in:fade={{ duration: 220 }}>
-      <p class="panel-counter" aria-label="Step {activeIndex + 1} of {steps.length}">
-        Step {activeIndex + 1} / {steps.length}
-      </p>
-      <h3 class="panel-heading">{steps[activeIndex].heading}</h3>
-      <p class="panel-body">{steps[activeIndex].body}</p>
+          <!-- Text card (visible on all screen sizes) -->
+          <div class="step-card" class:active={activeStep === i}>
+            <span class="step-num" aria-label="Step {i + 1}">0{i + 1}</span>
+            <h3 class="step-label">{step.shortLabel}</h3>
+            <p class="step-desc">{step.text}</p>
+          </div>
 
-      <!-- Navigation arrows inside the panel -->
-      <div class="panel-nav">
-        <button
-          class="nav-btn"
-          disabled={activeIndex === 0}
-          on:click={() => (activeIndex -= 1)}
-          aria-label="Previous step"
-        >← Prev</button>
-        <button
-          class="nav-btn"
-          disabled={activeIndex === steps.length - 1}
-          on:click={() => (activeIndex += 1)}
-          aria-label="Next step"
-        >Next →</button>
+          <!-- Inline image: only shown on mobile -->
+          <div class="step-img-mobile" aria-hidden="true">
+            <img src={step.image} alt={step.alt} loading="lazy" />
+          </div>
+
+        </div>
+      {/each}
+    </div>
+
+    <!-- RIGHT: sticky image panel — desktop only, aria-hidden
+         because the same images appear inline on mobile       -->
+    <div class="spreads-sticky-col" aria-hidden="true">
+      <div class="spreads-sticky">
+
+        <!-- Image fades on activeStep change via Svelte {#key} -->
+        {#key activeStep}
+          <div class="sticky-img-wrap" in:fade={{ duration: 320 }}>
+            <img
+              src={steps[activeStep].image}
+              alt={steps[activeStep].alt}
+            />
+          </div>
+        {/key}
+
+        <!-- Step label beneath the image -->
+        <p class="sticky-step-label">{steps[activeStep].shortLabel}</p>
+
+        <!-- Progress dots -->
+        <div class="sticky-dots" role="presentation">
+          {#each steps as step, i (i)}
+            <span
+              class="dot"
+              class:active={activeStep === i}
+              title={step.shortLabel}
+            ></span>
+          {/each}
+        </div>
+
       </div>
     </div>
-  {/key}
+
+  </div>
+
+  <!-- ── Final cycle view ── -->
+  <!-- Observed by IntersectionObserver; reveals when user reaches here -->
+  <div class="cycle-section" bind:this={cycleEl}>
+    <div class="cycle-inner" class:visible={showCycle}>
+
+      <p class="cycle-kicker">The Full Cycle</p>
+      <h3 class="cycle-heading">How leptospirosis moves through an environment</h3>
+
+      <div class="cycle-flow">
+        {#each steps as step, i (i)}
+          <!-- Each node staggers in via transition-delay -->
+          <div
+            class="cycle-node"
+            style="transition-delay: {showCycle ? `${i * 0.12}s` : '0s'}"
+          >
+            <div class="cycle-img">
+              <img src={step.image} alt={step.alt} loading="lazy" />
+            </div>
+            <p class="cycle-label">{step.shortLabel}</p>
+          </div>
+
+          {#if i < steps.length - 1}
+            <span class="cycle-arrow" aria-hidden="true">→</span>
+          {/if}
+        {/each}
+      </div>
+
+    </div>
+  </div>
 
 </section>
 
+
 <style>
-  /* ── Section wrapper ─────────────────────────────────────── */
-  .how-it-spreads {
-    margin: 3.5rem 0 4rem;
-    padding: 2.5rem 0 0;
-    border-top: 1px solid #e0e0e0;
+  /* ── Full-bleed dark section ────────────────────────────── */
+  .how-spreads {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: #0d1117;
+    color: #f0f0f0;
   }
 
-  /* ── Intro block ─────────────────────────────────────────── */
-  .spreads-kicker {
-    font-family: 'Lato', system-ui, sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 0.6rem;
+  /* ── Google Doc intro block ─────────────────────────────── */
+  .spreads-doc-intro {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem clamp(1.5rem, 5vw, 3rem) 2.5rem;
   }
 
-  .spreads-heading {
+  .spreads-doc-intro :global(h2),
+  .spreads-doc-intro :global(h3) {
     font-family: 'Roboto Slab', serif;
-    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
     font-weight: 500;
-    color: #1a1a1a;
-    margin-bottom: 0.75rem;
+    color: #ffffff;
     line-height: 1.2;
+    margin-bottom: 0.75rem;
   }
 
-  .spreads-intro-text {
+  .spreads-doc-intro :global(h2) { font-size: clamp(1.5rem, 3.5vw, 2.2rem); }
+  .spreads-doc-intro :global(h3) { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+
+  .spreads-doc-intro :global(p) {
     font-family: 'Lato', system-ui, sans-serif;
-    font-size: 1rem;
-    line-height: 1.65;
-    color: #555;
-    max-width: 560px;
-    margin-bottom: 2rem;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(240, 240, 240, 0.8);
+    margin: 0 0 1rem;
   }
 
-  /* ── Transmission chain ──────────────────────────────────── */
-  .chain {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-bottom: 0.5rem;
+  /* ── Two-column scroll body ─────────────────────────────── */
+  .spreads-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
-  .step-btn {
+  /* ── LEFT scroll column ─────────────────────────────────── */
+  /* Each panel is at least one viewport tall so there's
+     enough scroll distance for the sticky image to register */
+  .step-panel {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.7rem 1rem;
-    min-width: 90px;
-
-    background: #f2f2f2;
-    border: 1.5px solid transparent;
-    border-radius: 6px;
-    cursor: pointer;
-
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
-      transform 0.15s ease;
-
-    /* Reset browser button styles */
-    font-family: inherit;
-    color: #444;
+    justify-content: center;
+    padding: 4rem clamp(2rem, 5vw, 4rem);
   }
 
-  .step-btn:hover:not(.active) {
-    background: #e8e8e8;
-    border-color: #ccc;
-    transform: translateY(-1px);
+  /* Text card */
+  .step-card {
+    max-width: 400px;
+    opacity: 0.28;
+    transform: translateX(-10px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
   }
 
-  .step-btn:focus-visible {
-    outline: 2px solid #1a1a1a;
-    outline-offset: 2px;
+  .step-card.active {
+    opacity: 1;
+    transform: translateX(0);
   }
 
-  /* Active step: filled dark */
-  .step-btn.active {
-    background: #1a1a1a;
-    border-color: #1a1a1a;
-    color: #fff;
-    transform: translateY(-1px);
-  }
-
-  .step-number {
+  .step-num {
+    display: block;
     font-family: 'Lato', system-ui, sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    opacity: 0.6;
-  }
-
-  .step-btn.active .step-number {
-    opacity: 0.7;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 200, 100, 0.85);
+    margin-bottom: 0.6rem;
   }
 
   .step-label {
+    font-family: 'Roboto Slab', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+
+  .step-desc {
     font-family: 'Lato', system-ui, sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-align: center;
-    line-height: 1.3;
+    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+    line-height: 1.75;
+    color: rgba(240, 240, 240, 0.78);
+    margin: 0;
   }
 
-  /* Arrow between steps — hidden on small screens */
-  .chain-arrow {
-    font-size: 1.3rem;
-    color: #bbb;
-    line-height: 1;
-    user-select: none;
-    flex-shrink: 0;
+  /* Mobile inline image — hidden on desktop */
+  .step-img-mobile {
+    display: none;
   }
 
-  @media (max-width: 600px) {
-    .chain {
-      gap: 0.5rem;
-    }
-
-    .chain-arrow {
-      display: none;
-    }
-
-    .step-btn {
-      flex-direction: row;
-      min-width: unset;
-      width: 100%;
-      justify-content: flex-start;
-      gap: 0.75rem;
-      text-align: left;
-    }
-
-    .step-label {
-      text-align: left;
-    }
+  /* ── RIGHT sticky column ─────────────────────────────────── */
+  /* Must be position:relative so the sticky child can scroll
+     within its bounds */
+  .spreads-sticky-col {
+    position: relative;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  /* ── Progress bar ────────────────────────────────────────── */
-  .chain-progress {
-    height: 2px;
-    background: #e8e8e8;
-    border-radius: 2px;
-    margin: 0.75rem 0 1.5rem;
-    overflow: hidden;
+  .spreads-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    gap: 1.25rem;
   }
 
-  .chain-progress-fill {
-    height: 100%;
-    background: #1a1a1a;
-    border-radius: 2px;
-    transition: width 0.35s ease;
+  .sticky-img-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
   }
 
-  /* ── Explanation panel ───────────────────────────────────── */
-  .step-panel {
-    background: #fafafa;
-    border: 1px solid #e8e8e8;
-    border-left: 3px solid #1a1a1a;
-    border-radius: 0 6px 6px 0;
-    padding: 1.4rem 1.6rem 1.2rem;
+  .sticky-img-wrap img {
+    max-width: 100%;
+    max-height: 55vh;
+    object-fit: contain;
+    /* Fallback tint while PNG loads */
+    background: transparent;
   }
 
-  .panel-counter {
+  .sticky-step-label {
     font-family: 'Lato', system-ui, sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #999;
-    margin-bottom: 0.5rem;
+    color: rgba(255, 200, 100, 0.8);
+    margin: 0;
   }
 
-  .panel-heading {
-    font-family: 'Roboto Slab', serif;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    font-weight: 500;
-    color: #1a1a1a;
-    margin-bottom: 0.6rem;
-    line-height: 1.3;
-  }
-
-  .panel-body {
-    font-family: 'Lato', system-ui, sans-serif;
-    font-size: 0.97rem;
-    line-height: 1.7;
-    color: #444;
-    margin-bottom: 1.1rem;
-  }
-
-  /* ── Prev / Next navigation inside panel ────────────────── */
-  .panel-nav {
+  /* Progress dots */
+  .sticky-dots {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
 
-  .nav-btn {
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .dot.active {
+    background: rgba(255, 200, 100, 0.9);
+    transform: scale(1.4);
+  }
+
+  /* ── Cycle view ─────────────────────────────────────────── */
+  .cycle-section {
+    padding: 4.5rem clamp(1.5rem, 6vw, 5rem) 5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .cycle-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cycle-inner.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cycle-kicker {
     font-family: 'Lato', system-ui, sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 200, 100, 0.8);
+    margin: 0 0 0.5rem;
+  }
+
+  .cycle-heading {
+    font-family: 'Roboto Slab', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0 0 2.5rem;
+    max-width: 580px;
+  }
+
+  .cycle-flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Each node fades and scales in with a stagger delay */
+  .cycle-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    opacity: 0;
+    transform: scale(0.82) translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .cycle-inner.visible .cycle-node {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .cycle-img {
+    width: clamp(90px, 10vw, 130px);
+    height: clamp(90px, 10vw, 130px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    padding: 0.85rem;
+  }
+
+  .cycle-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .cycle-label {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    color: #1a1a1a;
-    background: none;
-    border: 1.5px solid #ccc;
-    border-radius: 4px;
-    padding: 0.3rem 0.8rem;
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
+    letter-spacing: 0.06em;
+    color: rgba(240, 240, 240, 0.8);
+    text-align: center;
+    margin: 0;
+    max-width: 90px;
   }
 
-  .nav-btn:hover:not(:disabled) {
-    background: #f0f0f0;
-    border-color: #aaa;
+  /* Arrow between cycle nodes */
+  .cycle-arrow {
+    font-size: 1.3rem;
+    color: rgba(255, 200, 100, 0.5);
+    /* Push arrow down to align with image centers */
+    margin-bottom: 1.8rem;
+    flex-shrink: 0;
   }
 
-  .nav-btn:disabled {
-    opacity: 0.35;
-    cursor: default;
-  }
+  /* ── Mobile layout ──────────────────────────────────────── */
+  @media (max-width: 768px) {
+    /* Collapse to single column */
+    .spreads-body {
+      grid-template-columns: 1fr;
+    }
 
-  .nav-btn:focus-visible {
-    outline: 2px solid #1a1a1a;
-    outline-offset: 2px;
+    /* Hide desktop sticky panel */
+    .spreads-sticky-col {
+      display: none;
+    }
+
+    /* Show inline image per step */
+    .step-img-mobile {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .step-img-mobile img {
+      max-width: 220px;
+      max-height: 200px;
+      object-fit: contain;
+    }
+
+    /* Remove dim/slide effect — all cards fully visible on mobile */
+    .step-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      max-width: 100%;
+    }
+
+    /* Shorter panels on mobile (no full-screen scroll needed) */
+    .step-panel {
+      min-height: unset;
+      padding: 2.5rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    /* Cycle: stack vertically on small screens */
+    .cycle-flow {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .cycle-arrow {
+      transform: rotate(90deg);
+      margin: 0.1rem 0 0.1rem clamp(35px, 4.5vw, 50px);
+    }
+
+    .cycle-node {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cycle-img {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    .cycle-label {
+      max-width: unset;
+      text-align: left;
+      font-size: 0.85rem;
+    }
   }
 </style>
