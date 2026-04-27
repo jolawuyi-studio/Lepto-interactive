@@ -3,12 +3,10 @@
   import DocRenderer from '$lib/components/DocRenderer.svelte';
   import type { Block } from '$lib/components/DocRenderer.svelte';
   import TheAlert from '$lib/components/TheAlert.svelte';
-<<<<<<< Updated upstream
-  import map from '$lib/components/map.svelte';
-=======
   import HowItSpreads from '$lib/components/HowItSpreads.svelte';
   import MeetYesica from '$lib/components/MeetYesica.svelte';
->>>>>>> Stashed changes
+  // Aliased to PascalCase so Svelte treats it as a component, not an HTML <map> element
+  import MapEmbed from '$lib/components/map.svelte';
   const blocks = rawBlocks as Block[];
 </script>
 
@@ -31,6 +29,10 @@
       <!-- TEMPORARY: Remove once [[MeetYesica]]...[[/MeetYesica]] is in
            your Google Doc and you've run `npm run build:extract-google-doc`. -->
       <MeetYesica />
+
+      <!-- TEMPORARY: Remove once [[map]] is in your Google Doc and you've
+           run `npm run build:extract-google-doc`. -->
+      <MapEmbed />
 
       <DocRenderer {blocks} />
     </div>
