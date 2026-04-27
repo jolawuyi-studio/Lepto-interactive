@@ -3,6 +3,7 @@
   import DocRenderer from '$lib/components/DocRenderer.svelte';
   import type { Block } from '$lib/components/DocRenderer.svelte';
   import TheAlert from '$lib/components/TheAlert.svelte';
+  import map from '$lib/components/map.svelte';
   const blocks = rawBlocks as Block[];
 </script>
 
