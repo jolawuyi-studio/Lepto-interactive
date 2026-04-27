@@ -258,11 +258,12 @@
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html bodyHtml}
       {:else}
-        <div class="dev-placeholder">
-          <p><strong>Story text placeholder</strong></p>
-          <p>Add <code>[[MeetYesica]]</code> … <code>[[/MeetYesica]]</code> to your Google Doc,
-          then run <code>npm run build:extract-google-doc</code>.</p>
-        </div>
+        <figure class="yesica-portrait">
+          <img src="{base}/DSCF4079.JPG" alt="Yesica Prado, Berkeley Homeless Union leader" />
+          <figcaption>Yesica Prado at the Harrison Street encampment, Berkeley.</figcaption>
+        </figure>
+        <p>Yesica Prado, a leader with the Berkeley Homeless Union and a resident advocate at the Harrison Street encampment, has been closely following the public health alert warning about leptospirosis risk in the area. As someone who helps organize services and communicate information to residents, she sees the alert as both a warning and a source of concern within the community.</p>
+        <p>While she acknowledges the seriousness of the disease risk, Yesica says many residents are worried about how the alert could affect their safety and stability. For her, the issue is not only about bacteria or public health guidance, but about how warnings translate into action that directly affects people living outdoors.</p>
       {/if}
     </div>
 
@@ -583,6 +584,30 @@
     .yesica-body { grid-template-columns: 1fr; gap: 2rem; }
   }
 
+  /* ── Yesica portrait (placeholder state only) ───────────── */
+  .yesica-portrait {
+    margin: 0 0 1.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .yesica-portrait img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    max-height: 420px;
+    border-radius: 4px;
+  }
+
+  .yesica-portrait figcaption {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.45);
+    margin-top: 0.45rem;
+    line-height: 1.5;
+  }
+
   /* ── Story text (Google Doc HTML) ───────────────────────── */
   .yesica-story :global(h2),
   .yesica-story :global(h3) {
@@ -621,22 +646,7 @@
     line-height: 1.55;
   }
 
-  /* Dev placeholder */
-  .dev-placeholder {
-    background: rgba(255,255,255,0.04);
-    border: 1px dashed rgba(255,255,255,0.15);
-    border-radius: 4px;
-    padding: 1.5rem;
-    color: rgba(255,255,255,0.45);
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-  .dev-placeholder code {
-    background: rgba(255,255,255,0.08);
-    padding: 0.1em 0.35em;
-    border-radius: 3px;
-    font-size: 0.85em;
-  }
+
 
   /* ── Sidebar ─────────────────────────────────────────────── */
   .yesica-sidebar {
