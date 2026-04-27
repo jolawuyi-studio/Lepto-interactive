@@ -85,6 +85,15 @@
   let activeStep = 0;
   let showCycle = false;
 
+  // Precomputed raindrop data — step 3 "Rain & Soil" effect
+  const raindrops = Array.from({ length: 55 }, () => ({
+    left:     parseFloat((Math.random() * 100).toFixed(1)),
+    delay:    parseFloat((-(Math.random() * 2.5)).toFixed(2)),
+    duration: parseFloat((0.4 + Math.random() * 0.6).toFixed(2)),
+    opacity:  parseFloat((0.2 + Math.random() * 0.45).toFixed(2)),
+    height:   8 + Math.round(Math.random() * 16)
+  }));
+
   let stepEls: (HTMLElement | null)[] = new Array(steps.length).fill(null);
   let cycleEl: HTMLElement | null = null;
   let observer: IntersectionObserver | null = null;
@@ -141,7 +150,17 @@
           </div>
 
           <!-- Inline image: only shown on mobile -->
-          <div class="step-img-mobile" aria-hidden="true">
+          <div class="step-img-mobile" class:rain-host={i === 2} aria-hidden="true">
+            {#if i === 2}
+              <div class="rain-overlay" aria-hidden="true">
+                {#each raindrops as drop, ri (ri)}
+                  <span
+                    class="raindrop"
+                    style="left:{drop.left}%; animation-delay:{drop.delay}s; animation-duration:{drop.duration}s; opacity:{drop.opacity}; height:{drop.height}px"
+                  ></span>
+                {/each}
+              </div>
+            {/if}
             <img src={step.image} alt={step.alt} loading="lazy" />
           </div>
 
@@ -153,6 +172,18 @@
          because the same images appear inline on mobile       -->
     <div class="spreads-sticky-col" aria-hidden="true">
       <div class="spreads-sticky">
+
+        <!-- Rain overlay — only visible on step 3 (Rain & Soil) -->
+        {#if activeStep === 2}
+          <div class="rain-overlay" aria-hidden="true" transition:fade={{ duration: 500 }}>
+            {#each raindrops as drop, ri (ri)}
+              <span
+                class="raindrop"
+                style="left:{drop.left}%; animation-delay:{drop.delay}s; animation-duration:{drop.duration}s; opacity:{drop.opacity}; height:{drop.height}px"
+              ></span>
+            {/each}
+          </div>
+        {/if}
 
         <!-- Image fades on activeStep change via Svelte {#key} -->
         {#key activeStep}
@@ -477,6 +508,42 @@
     /* Push arrow down to align with image centers */
     margin-bottom: 1.8rem;
     flex-shrink: 0;
+  }
+
+  /* ── Rain effect (Step 3: Rain & Soil) ─────────────────── */
+  .rain-overlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .raindrop {
+    position: absolute;
+    top: -5%;
+    width: 1.5px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(140, 210, 255, 0.75) 30%,
+      rgba(100, 180, 255, 0.55) 70%,
+      transparent
+    );
+    border-radius: 0 0 2px 2px;
+    animation: rainfall linear infinite;
+  }
+
+  @keyframes rainfall {
+    from { transform: rotate(8deg) translateY(0); }
+    to   { transform: rotate(8deg) translateY(130vh); }
+  }
+
+  /* Mobile rain host needs a positioning context */
+  .rain-host {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
   }
 
   /* ── Mobile layout ──────────────────────────────────────── */
