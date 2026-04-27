@@ -201,7 +201,7 @@
   <!-- ── Section header ── -->
   <header class="yesica-header">
     <p class="yesica-kicker">Harrison Street</p>
-    <h2 id="yesica-heading" class="yesica-title">Meet Yesica</h2>
+    <h2 id="yesica-heading" class="yesica-title">Meet the community</h2>
   </header>
 
   <!-- ══════════════════════════════════════════════════════
