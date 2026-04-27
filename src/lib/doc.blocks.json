@@ -14,6 +14,27 @@
   },
   {
     "type": "html",
+    "html": ""
+  },
+  {
+    "type": "shortcode",
+    "name": "MeetYesica",
+    "attrs": {
+      "bodyHtml": "</p>\n<p>## Meet Yesica</p>\n<p>For residents on Harrison Street, the leptospirosis alert was not only about disease...</p>\n<p>(all your paragraphs and quotes for this section)</p>\n<p>",
+      "bodyText": "## Meet Yesica\nFor residents on Harrison Street, the leptospirosis alert was not only about disease...\n(all your paragraphs and quotes for this section)"
+    }
+  },
+  {
+    "type": "html",
+    "html": ""
+  },
+  {
+    "type": "shortcode",
+    "name": "HowItSpreads",
+    "attrs": {}
+  },
+  {
+    "type": "html",
     "html": "<p>January 12, 2026</p>\n<p>Berkeley issued a public health alert after rats and two dogs tested positive for Leptospira bacteria. </p>\n<p>November&ndash;December 2025 Samples collected from rats and dogs</p>\n<p>Location: Harrison Street Encampment area identified</p>\n<p>===================================</p>\n<p>Below are unused sample content</p>\n<p>A news organization&#39;s budget inevitably reflects decision-making about what news to cover, for what audience, and in what depth. When budgets are cut, editors may sacrifice reporters in distant news bureaus, reduce the number of staff assigned to low-income areas, or wipe entire communities from the publication&#39;s zone of interest.</p>\n<p>Publishers, owners and other corporate executives, especially advertising sales executives, could try to use their powers over journalists to influence how news is reported and published. For this reason, journalists traditionally relied on top management to create and maintain a &quot;firewall&quot; between the news and other departments in a news organization to prevent undue influence on the news department.</p>"
   },
   {
