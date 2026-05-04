@@ -126,6 +126,12 @@
 
 <section class="how-spreads" aria-label="How leptospirosis spreads">
 
+  <!-- ── Section heading ── -->
+  <div class="spreads-heading-block">
+    <p class="spreads-kicker">Transmission</p>
+    <h2 class="spreads-heading">How Does Leptospirosis Spread?</h2>
+  </div>
+
   <!-- ── Optional intro from Google Doc ── -->
   {#if bodyHtml}
     <div class="spreads-doc-intro">
@@ -254,6 +260,32 @@
     margin-left: calc(50% - 50vw);
     background: #0d1117;
     color: #f0f0f0;
+  }
+
+  /* ── Section heading ────────────────────────────────────── */
+  .spreads-heading-block {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem clamp(1.5rem, 5vw, 3rem) 2rem;
+  }
+
+  .spreads-kicker {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 200, 100, 0.85);
+    margin: 0 0 0.6rem;
+  }
+
+  .spreads-heading {
+    font-family: 'Crimson Text', Garamond, Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0;
   }
 
   /* ── Google Doc intro block ─────────────────────────────── */

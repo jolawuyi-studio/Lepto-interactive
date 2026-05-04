@@ -9,6 +9,16 @@
   To update the headline, intro, or caption, edit the text here.
 -->
 
+<!-- Section heading -->
+<div class="map-section-heading">
+  <h2 class="map-section-title">It Is Becoming a Larger Issue</h2>
+</div>
+
+<!-- Intro text after heading -->
+<div class="map-intro-text">
+  <p>Harrison Street is not home to the first Leptospira outbreak — there have been hundreds of cases popping up throughout the United States at a surprising rate. Just last year, the Chicago Health Department reported 6 cases of Leptospirosis, resulting in one death. The cases were in Logan Square and West Town, communities with a large unhoused population.</p>
+</div>
+
 <!-- Header: sits inside the article column (normal flow) -->
 <div class="map-header">
   <p class="map-kicker">Visual Comparison</p>
@@ -46,6 +56,34 @@
 </p>
 
 <style>
+  /* ── Section opening heading ────────────────────────────── */
+  .map-section-heading {
+    padding-top: 3.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .map-section-title {
+    font-family: 'Crimson Text', Garamond, Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  /* ── Intro text ─────────────────────────────────────────── */
+  .map-intro-text {
+    margin: 1rem 0 0;
+  }
+
+  .map-intro-text p {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #333;
+    margin: 0;
+  }
+
   /* ── Section header ──────────────────────────────────────── */
   .map-header {
     padding-top: 2.5rem;

@@ -248,6 +248,18 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════
+       CONTEXT TEXT
+       ══════════════════════════════════════════════════════ -->
+  <div class="context-text">
+    <p>Dr. Gabriel Treuba, the director of microbiology at the University of San Francisco de Quito and a public health advocate for the country of Ecuador, described that globally, lepto is treated as an afterthought by many governments. Researchers who study this illness share a sense of frustration due to its constant dismissal and suspect that this is because of the demographic that Leptospirosis usually affects.</p>
+    <blockquote>
+      <p>"The problem is mainly in the poor neighborhoods. Places where they do not have places for sewage, places where the contact with rats is very intense. Vaccinating the animals is the only way that you can prevent the disease. The problem is when you get into poor people that don't have any money for the vaccine — that is not provided by the government [they] have to buy it."</p>
+      <cite>— Dr. Gabriel Trueba</cite>
+    </blockquote>
+    <p>According to Dr. Trueba cases are often reported after periods of rainfall, but there is little understanding of how long the bacteria truly survive. However, we do know that the rising cases in the United States are due to climate change, but the disease has only been prevalent in communities that lack proper sewage systems and conditions where vermin can thrive like the unhoused encampments.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
        STORY BODY: text (left) + sidebar (right)
        ══════════════════════════════════════════════════════ -->
   <div class="yesica-body">
@@ -293,7 +305,7 @@
         <!-- svelte-ignore a11y-media-has-caption -->
         <audio
           bind:this={audioEl}
-          src="{base}/audio/yesica-clip.mp3"
+          src="{base}/yesica-clip.mp3"
           on:timeupdate={onTimeUpdate}
           on:play={() => (isPlaying = true)}
           on:pause={() => (isPlaying = false)}
@@ -355,38 +367,6 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════
-       VIDEO
-       ══════════════════════════════════════════════════════ -->
-  <div
-    class="video-section"
-    class:visible={videoVis}
-    bind:this={videoWrapEl}
-  >
-    <div class="video-inner">
-      <p class="video-kicker">Encampment footage</p>
-      <h3 class="video-heading">Life on Harrison Street</h3>
-
-      <!--
-        REPLACE: swap `lepto moving.mp4` with your encampment interview
-        or B-roll footage. Drop the file into static/ and update the src.
-      -->
-      <!-- svelte-ignore a11y-media-has-caption -->
-      <video
-        src="{base}/lepto%20moving.mp4"
-        controls
-        playsinline
-        preload="metadata"
-        aria-label="Ambient footage from Harrison Street encampment"
-      ></video>
-
-      <p class="video-caption">
-        Ambient footage from Harrison Street.
-        <span class="video-note">Replace with encampment interview or B-roll when available.</span>
-      </p>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════
        BOTTOM ROW: pull quote 3 + snapshot card
        ══════════════════════════════════════════════════════ -->
   <div class="yesica-bottom">
@@ -418,6 +398,60 @@
       <p class="snapshot-source">Estimates from Yesica at time of reporting.</p>
     </aside>
 
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CLOSING TEXT
+       ══════════════════════════════════════════════════════ -->
+  <div class="context-text">
+    <p>Leptospirosis is a zoonotic disease that primarily affects animals and is found predominantly in tropical countries in Africa, Asia, and Central and South America, but it is now becoming more common in the United States. In 2014, the CDC declared Leptospirosis a National Notifiable Disease, which means the disease is closely monitored and that positive cases must be reported to the department. Notifiable diseases pose threats to public health due to their potential to cause an outbreak or an epidemic. Diseases like Leptospirosis need to be addressed adequately and with a sense of urgency.</p>
+    <p>According to an article published by the National Library of Medicine, Leptospirosis is a difficult disease to track, both in terms of illness and from a bacterial standpoint. Symptoms can appear anywhere from a week to six weeks after exposure, and the severity can range from chills and fever to organ failure. The disease can often be mistaken for a cold or the flu.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       VIDEO
+       ══════════════════════════════════════════════════════ -->
+  <div
+    class="video-section"
+    class:visible={videoVis}
+    bind:this={videoWrapEl}
+  >
+    <div class="video-inner">
+      <p class="video-kicker">Harrison Street</p>
+      <h3 class="video-heading">Meet Erin</h3>
+
+      <p class="video-intro">Erin, a veteran who has been unhoused for nearly a decade, has been living in Berkeley for about ______ years. About 3 years ago, he had been diagnosed with Leptospirosis living in an encampment on Ashby in Berkeley. Erin describes the symptoms as the worst pain of his life.</p>
+
+      <!--
+        REPLACE: swap `lepto moving.mp4` with your encampment interview
+        or B-roll footage. Drop the file into static/ and update the src.
+      -->
+      <!-- svelte-ignore a11y-media-has-caption -->
+      <video
+        src="{base}/lepto%20moving.mp4"
+        controls
+        playsinline
+        preload="metadata"
+        aria-label="Footage from Harrison Street encampment — Meet Erin"
+      ></video>
+
+      <p class="video-caption">
+        Footage from Harrison Street, Berkeley.
+        <span class="video-note">Replace with Erin's interview footage when available.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       DR. TRI DO
+       ══════════════════════════════════════════════════════ -->
+  <div class="context-text">
+    <p>Dr. Tri Do is the Medical Director of Alameda County Health Care for the Homeless Housing and Homelessness Services, a company that assists both the county and the city with emergency public health issues. Throughout this bacterial outbreak, Alameda County Health provided biweekly symptom screenings for the encampment.</p>
+    <p>During symptom screening, Dr. Do reported that about three people had vague symptoms, but none that would indicate a positive Leptospirosis test. Alameda County Health is still conducting symptom screenings in hopes of providing consistent care for the unhoused community.</p>
+    <blockquote>
+      <p>"Homeless people deserve to have housing and great healthcare. That's why we do what we do."</p>
+      <cite>— Dr. Tri Do</cite>
+    </blockquote>
   </div>
 
 </section>
@@ -568,6 +602,48 @@
   .thumb-btn.active  { border-color: rgba(255,200,100,0.85); opacity: 1; }
   .thumb-btn:hover:not(.active) { opacity: 0.8; }
   .thumb-btn:focus-visible { outline: 2px solid rgba(255,200,100,0.8); outline-offset: 2px; }
+
+  /* ── Context text (between gallery and story body) ─────────── */
+  .context-text {
+    max-width: 720px;
+    margin: 3rem auto 0;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .context-text p {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(232, 232, 232, 0.85);
+    margin: 0 0 1.25rem;
+  }
+
+  .context-text blockquote {
+    margin: 1.75rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 3px solid rgba(255, 200, 100, 0.7);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .context-text blockquote p {
+    font-family: 'Crimson Text', Garamond, Georgia, serif;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.6;
+    margin: 0 0 0.65rem;
+  }
+
+  .context-text blockquote cite {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 200, 100, 0.75);
+  }
 
   /* ── Story body grid ─────────────────────────────────────── */
   .yesica-body {
@@ -854,6 +930,14 @@
     font-weight: 500;
     color: #ffffff;
     margin: 0 0 1.25rem;
+  }
+
+  .video-intro {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(232, 232, 232, 0.85);
+    margin: 0 0 1.5rem;
   }
 
   .video-section video {
