@@ -23,6 +23,7 @@
 
       <!-- ── Story intro ── -->
       <div class="story-intro">
+        <p class="byline">By Yusuf Akinpelu, Emely Bonilla and Joshua Olawuyi</p>
         <p>On January 12th, 2026, the City of Berkeley Public Health Department issued a health alert warning of a potential Leptospirosis outbreak. At the time, several rats and two dogs had tested positive for the bacteria Leptospira, which can be fatal if untreated.</p>
         <p>Harrison Street is not home to the first Leptospira outbreak — there have been hundreds of cases popping up throughout the United States at a surprising rate. Many of the cases have been traced to encampments, which have conditions where Leptospira can thrive. Without proper interference the country's most vulnerable demographic can be at the forefront of an outbreak. These are who have been impacted in Berkeley.</p>
       </div>
@@ -73,6 +74,17 @@
 
   .story-intro p:last-child {
     margin-bottom: 0;
+  }
+
+  .byline {
+    font-family: 'Lato', system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 200, 100, 0.8);
+    max-width: 680px;
+    margin: 0 auto 2rem !important;
   }
 </style>
 
