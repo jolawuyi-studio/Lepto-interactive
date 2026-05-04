@@ -57,6 +57,12 @@
 
 <style>
   /* ── Section opening heading ────────────────────────────── */
+  .map-dark-section {
+  background-color: #000 !important;
+  color: #fff !important;
+  padding: 3rem 1.5rem;
+  } 
+  
   .map-section-heading {
     padding-top: 3.5rem;
     margin-bottom: 0.5rem;
