@@ -258,7 +258,7 @@
   .how-spreads {
     width: 100vw;
     margin-left: calc(50% - 50vw);
-    background: #0d1117;
+    background: #000000;
     color: #f0f0f0;
   }
 
