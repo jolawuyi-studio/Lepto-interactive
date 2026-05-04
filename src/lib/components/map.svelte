@@ -120,7 +120,10 @@
 
   /* ── Full-bleed embed ────────────────────────────────────── */
  .juxtapose-outer {
-  background: #000;
+  width: 100vw;
+  margin-top: 1.5rem;
+  margin-left: calc(50% - 50vw);
+  background: #111;
 }
 
   /* aspect-ratio drives height so width is always 100% at every
