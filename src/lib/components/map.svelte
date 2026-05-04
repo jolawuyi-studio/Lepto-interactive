@@ -42,8 +42,8 @@
       title="Before and after comparison of Harrison Street"
       frameborder="0"
       class="juxtapose"
-      src="https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=6376e67e-3ecb-11f1-ba1b-0e6f42328d7d"
-      allowfullscreen
+      width="100%"
+      src="https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=050f885c-438f-11f1-ba1b-0e6f42328d7d"
     ></iframe>
   </div>
 </div>
@@ -120,27 +120,27 @@
   }
 
   /* ── Full-bleed embed ────────────────────────────────────── */
-  /* calc(50% - 50vw) shifts left by (half viewport - half column).
-     This reliably centers a 100vw element regardless of the column
-     width, and works correctly when rendered inside Bootstrap's col. */
   .juxtapose-outer {
     width: 100vw;
     margin-top: 1.5rem;
     margin-left: calc(50% - 50vw);
+    background: #111;
   }
 
-  /* ── Adaptive container ──────────────────────────────────── */
-  /* height: clamp(min, preferred, max)
-     - preferred = 65vh scales continuously with any screen size
-     - min = 260px  prevents collapse on tiny phones / landscape mobile
-     - max = 780px  stops it dominating a large monitor
-     No breakpoints needed — this adapts fluidly to every screen. */
+  /* aspect-ratio drives height so width is always 100% at every
+     screen size — no fixed pixels, no breakpoints needed.
+     16/9 on desktop, 4/3 on mobile for a taller, more usable frame. */
   .juxtapose-ratio {
     position: relative;
     width: 100%;
-    height: clamp(400px, 85vh, 1000px);
-    background: #111;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
+  }
+
+  @media (max-width: 600px) {
+    .juxtapose-ratio {
+      aspect-ratio: 4 / 3;
+    }
   }
 
   .juxtapose-ratio iframe {
@@ -149,6 +149,7 @@
     width: 100%;
     height: 100%;
     display: block;
+    border: none;
   }
 
   /* "Drag to compare" hint — fades out after 3 s via animation */
