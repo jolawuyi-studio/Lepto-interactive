@@ -66,7 +66,7 @@
     font-family: 'Lato', Garamond, Georgia, serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 400;
-    color: #1a1a1a;
+    color: #ffffff;
     line-height: 1.15;
     margin: 0;
   }
