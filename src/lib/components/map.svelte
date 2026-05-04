@@ -9,6 +9,7 @@
   To update the headline, intro, or caption, edit the text here.
 -->
 
+<div class="map-dark-section"></div>
 <!-- Section heading -->
 <div class="map-section-heading">
   <h2 class="map-section-title">It Is Becoming a Larger Issue</h2>
