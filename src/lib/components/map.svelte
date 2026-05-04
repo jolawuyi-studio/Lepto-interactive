@@ -62,7 +62,7 @@
   }
 
   .map-section-title {
-    font-family: 'lato', Garamond, Georgia, serif;
+    font-family: 'Lato', Garamond, Georgia, serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 400;
     color: #1a1a1a;
@@ -87,7 +87,7 @@
   .map-header {
     padding-top: 2.5rem;
     margin-bottom: 1.25rem;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #000000;
   }
 
   .map-kicker {
@@ -101,10 +101,10 @@
   }
 
   .map-heading {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Robloto Slab', serif;
     font-size: clamp(1.5rem, 3.5vw, 2.1rem);
     font-weight: 500;
-    color: #1a1a1a;
+    color: #ffffff;
     line-height: 1.2;
     margin-bottom: 0.65rem;
   }
@@ -113,7 +113,7 @@
     font-family: 'Lato', system-ui, sans-serif;
     font-size: 0.97rem;
     line-height: 1.65;
-    color: #555;
+    color: #ffffff;
     max-width: 560px;
     margin: 0;
   }
