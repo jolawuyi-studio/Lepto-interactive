@@ -22,11 +22,10 @@
 <!-- Header: sits inside the article column (normal flow) -->
 <div class="map-header">
   <p class="map-kicker">Visual Comparison</p>
-  <h2 class="map-heading">Harrison Street: Then and Now</h2>
+  <h2 class="map-heading">The United States: Then and Now</h2>
   <!-- REPLACE: update this intro sentence to match your story -->
   <p class="map-intro">
-    Drag the slider to compare conditions along Harrison Street before and
-    after the leptospirosis alert was issued.
+    Drag the slider to compare the amount of cases throughout the country in 2025 and until now in 2026.
   </p>
 </div>
 
@@ -63,7 +62,7 @@
   }
 
   .map-section-title {
-    font-family: 'Crimson Text', Garamond, Georgia, serif;
+    font-family: 'lato', Garamond, Georgia, serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 400;
     color: #1a1a1a;
@@ -120,12 +119,9 @@
   }
 
   /* ── Full-bleed embed ────────────────────────────────────── */
-  .juxtapose-outer {
-    width: 100vw;
-    margin-top: 1.5rem;
-    margin-left: calc(50% - 50vw);
-    background: #111;
-  }
+ .juxtapose-outer {
+  background: #000;
+}
 
   /* aspect-ratio drives height so width is always 100% at every
      screen size — no fixed pixels, no breakpoints needed.
@@ -164,7 +160,7 @@
     gap: 0.5rem;
     padding: 0.35rem 0.9rem;
     background: rgba(0, 0, 0, 0.55);
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(225, 36, 36, 0.9);
     font-family: 'Lato', system-ui, sans-serif;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
