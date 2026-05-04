@@ -61,6 +61,8 @@
   background-color: #000 !important;
   color: #fff !important;
   padding: 3rem 1.5rem;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   } 
   
   .map-section-heading {
@@ -72,13 +74,14 @@
     font-family: 'Lato', Garamond, Georgia, serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 400;
-    color: #1a1a1a;
+    color: #ffffff;
     line-height: 1.15;
     margin: 0;
   }
 
   /* ── Intro text ─────────────────────────────────────────── */
   .map-intro-text {
+    color: #dddddd;
     margin: 1rem 0 0;
   }
 
