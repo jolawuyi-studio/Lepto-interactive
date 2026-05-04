@@ -60,9 +60,13 @@
   .map-dark-section {
   background-color: #000 !important;
   color: #fff !important;
-  padding: 3rem 1.5rem;
+  padding: 4rem 0rem;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   width: 100vw;
-  margin-left: calc(50% - 50vw);
   } 
   
   .map-section-heading {
