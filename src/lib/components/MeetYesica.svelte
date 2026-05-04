@@ -435,10 +435,7 @@
         aria-label="Footage from Harrison Street encampment — Meet Erin"
       ></video>
 
-      <p class="video-caption">
-        Footage from Harrison Street, Berkeley.
-        <span class="video-note">Replace with Erin's interview footage when available.</span>
-      </p>
+      <p class="video-caption">Interview with Erin</p>
     </div>
   </div>
 
@@ -958,12 +955,6 @@
     line-height: 1.55;
   }
 
-  .video-note {
-    display: block;
-    font-style: normal;
-    color: rgba(255,200,100,0.5);
-    margin-top: 0.2rem;
-  }
 
   /* ── Bottom row: large quote + snapshot ─────────────────── */
   .yesica-bottom {
