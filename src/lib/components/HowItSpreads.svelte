@@ -226,7 +226,7 @@
     <div class="cycle-inner" class:visible={showCycle}>
 
       <p class="cycle-kicker">The Full Cycle</p>
-      <h3 class="cycle-heading">How leptospirosis moves through an environment</h3>
+      <h3 class="cycle-heading">How leptospirosis moves through an environment:</h3>
 
       <div class="cycle-flow">
         {#each steps as step, i (i)}
