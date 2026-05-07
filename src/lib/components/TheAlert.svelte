@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment';
+  import { base } from '$app/paths';
 
   const beats = [
     {
@@ -65,7 +66,7 @@
     -->
     <div
       class="alert-bg-img"
-      style="background-image: url('/8thstreet-01.JPG')"
+      style="background-image: url('{base}/8thstreet-01.JPG')"
     ></div>
 
     <!-- Dark gradient overlay — lighter at top, heavier at bottom for readability -->
